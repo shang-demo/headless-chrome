@@ -112,6 +112,13 @@ let query = {
       return ExecuteCmdService.helpInfo;
     },
   },
+  wsEndpoint: {
+    type: GraphQLString,
+    description: '测试',
+    resolve() {
+      return HeadlessChromeService.wsEndpoint();
+    },
+  },
 };
 
 let mutation = {

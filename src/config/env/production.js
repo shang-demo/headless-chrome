@@ -42,6 +42,11 @@ module.exports = {
     ref: 'master',
   },
   port: process.env.PORT || 8080,
+  graphql: {
+    graphiql: true,
+  },
   ip: undefined,
-  bootstrap: [],
+  bootstrap: [
+    'HeadlessChromeService',
+  ],
 };

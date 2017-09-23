@@ -41,5 +41,6 @@ module.exports = {
   },
   bootstrap: [
     // 'WebhookService',
+    'HeadlessChromeService',
   ],
 };
