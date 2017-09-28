@@ -49,4 +49,5 @@ module.exports = {
   bootstrap: [
     'HeadlessChromeService',
   ],
+  chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };
