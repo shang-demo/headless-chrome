@@ -25,6 +25,7 @@ const errors = {
   // executeCmdService
   ExecCmdKeyNotMatch: { code: 200301, message: '无权限执行命令' },
   ExecCmdParamError: { code: 200302, message: '参数错误, 请使用help命令查看如何使用' },
+  PageContentError: { code: 200303, message: '获取网页内容失败' },
 };
 
 module.exports.errors = errors;

@@ -3,6 +3,7 @@ const {
   GraphQLString,
   GraphQLEnumType,
   GraphQLObjectType,
+  GraphQLNonNull,
   GraphQLFloat,
 } = require('graphql');
 
@@ -114,9 +115,24 @@ let query = {
   },
   wsEndpoint: {
     type: GraphQLString,
-    description: '测试',
+    description: '获取HeadlessChrome连接',
     resolve() {
       return HeadlessChromeService.wsEndpoint();
+    },
+  },
+  html: {
+    type: GraphQLString,
+    description: '获取网页内容',
+    args: {
+      url: {
+        type: new GraphQLNonNull(GraphQLString),
+      },
+      delay: {
+        type: GraphQLFloat,
+      },
+    },
+    resolve(root, args) {
+      return HeadlessChromeService.pageContent(args);
     },
   },
 };

@@ -7,6 +7,7 @@ module.exports = {
     Constants: false,
     Errors: false,
     ExecuteCmdService: false,
+    HeadlessChromeService: false,
     HookService: false,
     logger: false,
     MailSendService: false,

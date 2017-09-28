@@ -12,12 +12,13 @@ test:
 		mocha --recursive --timeout 10000 --require chai --harmony --bail test; \
 	fi
 prod:
-	gulp prod
-	NODE_ENV=production PRETTY_LOG=1 node production/app.js
+	gulp buildServer
+	NODE_ENV=production node production/app.js
 pushHeroku: 
-	cp ./package.json ./production
-	gsed -i 's/"start": ".*/"start": "NODE_ENV=heroku pm2 start .\/index.js --no-daemon",/g' ./production/package.json
-	cd ./production && git add -A && git commit -m "auto" && git push heroku master && heroku logs --tail
+	gulp buildServer
+	cp ./package.json production/
+	gsed -i 's/"start": ".*/"start": "NODE_ENV=heroku pm2-docker start .\/remote-index.js --raw",/g' ./production/package.json
+	cd production && git add -A && git commit -m "auto" && git push heroku master -f && heroku logs --tail
 merge:
 	git fetch template v3
 	git merge remotes/template/v3

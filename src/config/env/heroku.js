@@ -1,18 +1,24 @@
+const MONGODB_DATABASE = 'production';
+const MONGODB_USERNAME = 'productionUser';
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
 
 module.exports = {
   log: {
     level: 'trace',
     requestBody: true,
-    responseBody: true,
+    responseBody: false,
   },
   connections: {
     defaultMongo: {
+      username: MONGODB_USERNAME,
+      password: MONGODB_PASSWORD,
       hosts: [
         {
-          host: '127.0.0.1',
+          host: '112.74.107.82',
+          port: 13508,
         }
       ],
-      database: 'noName',
+      database: MONGODB_DATABASE,
     },
   },
   auth: {
@@ -35,13 +41,12 @@ module.exports = {
   update: {
     ref: 'master',
   },
-  port: process.env.PORT || 1337,
   graphql: {
     graphiql: true,
   },
+  port: process.env.PORT || 8080,
+  ip: undefined,
   bootstrap: [
-    // 'WebhookService',
     'HeadlessChromeService',
   ],
-  chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };
