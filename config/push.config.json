@@ -1,8 +1,8 @@
 {
   "dev": {
-    "url": "",
+    "url": "git@github.com:shang-demo/headless-chrome.git",
     "remote": "origin",
-    "branch": ""
+    "branch": "master"
   },
   "deploy": {
     "url": "git@gitlab.com:demoshang/server-projects.git",
