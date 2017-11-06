@@ -17,6 +17,9 @@ const svc = {
       json: true,
     });
 
+    if (/^https/.test(chromeEndpoint)) {
+      body.webSocketDebuggerUrl = body.webSocketDebuggerUrl.replace(/^ws:\/\//, 'wss://');
+    }
     return puppeteer.connect({
       browserWSEndpoint: body.webSocketDebuggerUrl,
       ignoreHTTPSErrors: true,

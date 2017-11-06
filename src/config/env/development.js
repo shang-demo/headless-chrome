@@ -43,5 +43,6 @@ module.exports = {
     // 'WebhookService',
     'HeadlessChromeService',
   ],
-  chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
+  chromeEndpoint: 'https://headless-chrome.now.sh',
+  // chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };
