@@ -161,6 +161,13 @@ let mutation = {
       return ExecuteCmdService.generateToken(data);
     },
   },
+  reconnect: {
+    type: GraphQLString,
+    description: '重新连接chrome',
+    resolve() {
+      return HeadlessChromeService.reconnect();
+    },
+  },
 };
 
 module.exports = {

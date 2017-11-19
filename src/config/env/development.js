@@ -10,6 +10,6 @@ module.exports = {
     },
   },
   bootstrap: ['HeadlessChromeService'],
-  chromeEndpoint: 'https://headless-chrome.now.sh',
+  chromeEndpoint: 'https://remote-headless-chrome.now.sh',
   // chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };
