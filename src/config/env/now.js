@@ -1,6 +1,6 @@
-const MONGODB_DATABASE = 'noName';
-const MONGODB_USERNAME = 'noNameUser';
-const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD || '';
+const MONGODB_DATABASE = 'production';
+const MONGODB_USERNAME = 'productionUser';
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
 
 module.exports = {
   log: {
@@ -21,10 +21,13 @@ module.exports = {
       database: MONGODB_DATABASE,
     },
   },
-  port: process.env.LEANCLOUD_APP_PORT || 8080,
+  port: process.env.PORT || 8080,
   graphql: {
     graphiql: true,
   },
   ip: undefined,
-  bootstrap: [],
+  bootstrap: [
+    'HeadlessChromeService',
+  ],
+  chromeEndpoint: 'https://remote-headless-chrome.now.sh',
 };
