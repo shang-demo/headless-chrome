@@ -1,6 +1,6 @@
 const MONGODB_DATABASE = 'noName';
 const MONGODB_USERNAME = 'noNameUser';
-const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD || 'WhvyGd6tH4VpL44k';
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD || '';
 
 module.exports = {
   log: {
@@ -26,8 +26,5 @@ module.exports = {
     graphiql: true,
   },
   ip: undefined,
-  bootstrap: [
-    'HeadlessChromeService',
-  ],
-  chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
+  bootstrap: [],
 };

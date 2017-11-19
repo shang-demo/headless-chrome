@@ -23,11 +23,17 @@ merge:
 	git fetch template v3
 	git merge remotes/template/v3
 push:
-	@ sh config/push.sh
+	@ bash config/script-tools/push-git.sh
 deploy:
-	@ sh config/push.sh deploy $(e)
+	@ bash config/script-tools/push-git.sh prod $(e)
+deploy-now:
+	@ bash config/script-tools/deploy-now.sh
+alias-now:
+	@ bash config/script-tools/alias-now.sh
+now:
+	@ echo "source config/script-tools/n.sh"
 copy:
-	@ sh config/copy.sh $(d)
+	@ bash config/script-tools/copy.sh $(d)
 rsync:
 	cp ./package.json ./production
 	gsed -i 's/"start": ".*/"start": "PORT=1345 NODE_ENV=production pm2 start .\/index.js --name headless-chrome:1345",/g' ./production/package.json
