@@ -5,13 +5,22 @@ const { CronJob } = require('cron');
 
 global.logger = console;
 
+process.env.PORT = 9000;
+
 const svc = {
   browser: null,
   async lift() {
     logger.info('--start puppeteer.launch--');
+
+    let remoteDebuggingAddress = '0.0.0.0';
+    if (!process.env.NODE_ENV) {
+      remoteDebuggingAddress = '127.0.0.1';
+    }
     logger.info('process.env.PORT: ', process.env.PORT);
+    logger.info('remoteDebuggingAddress: ', remoteDebuggingAddress);
+
     try {
-      svc.browser = await puppeteer.launch({
+      let config = {
         ignoreHTTPSErrors: true,
         args: [
           // '--proxy-server=socks5://127.0.0.1:1080',
@@ -22,10 +31,12 @@ const svc = {
           '--mute-audio',
           '--no-sandbox',
           '--disable-setuid-sandbox',
-          '--remote-debugging-address=0.0.0.0',
+          `--remote-debugging-address=${remoteDebuggingAddress}`,
           `--remote-debugging-port=${process.env.PORT}`,
         ],
-      });
+      };
+
+      svc.browser = await puppeteer.launch(config);
       logger.info('wsEndpoint: ', svc.browser.wsEndpoint());
     }
     catch (e) {
@@ -33,7 +44,7 @@ const svc = {
     }
     logger.info('--done puppeteer.launch--');
 
-    this.closeTagTask();
+    // this.closeTagTask();
   },
   async closeTagTask() {
     let options = {
@@ -63,5 +74,18 @@ const svc = {
 };
 
 module.exports = svc;
+
+process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
+  console.error('uncaughtException:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+  // eslint-disable-next-line no-console
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+  process.exit(1);
+});
+
 
 svc.lift();

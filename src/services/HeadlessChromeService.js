@@ -1,15 +1,9 @@
 const puppeteer = require('puppeteer');
 const rp = require('request-promise');
+const promiseRetry = require('promise-retry');
 
 const svc = {
   browser: null,
-  async lift() {
-    this.browser = await this.connect(mKoa.config.chromeEndpoint);
-    logger.info('success puppeteer.connect');
-  },
-  async getBrowser() {
-    return this.browser;
-  },
   async connect(chromeEndpoint) {
     let body = await rp({
       method: 'GET',
@@ -25,17 +19,16 @@ const svc = {
       ignoreHTTPSErrors: true,
     });
   },
-  async reconnect() {
-    await this.lift();
-    return this.wsEndpoint();
-  },
-  async wsEndpoint() {
-    return this.browser.wsEndpoint();
+  async tryPage({ url, delay }) {
+    return promiseRetry((retry, number) => {
+      logger.warn('attempt number', number, url, delay);
+      return svc.pageContent({ url, delay });
+    }, { retries: 3, factor: 1 });
   },
   async pageContent({ url, delay }) {
+    let browser = await this.connect(mKoa.config.chromeEndpoint);
     let page;
     try {
-      let browser = await this.getBrowser();
       page = await browser.newPage();
       await page.goto(url);
       if (delay) {

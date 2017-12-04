@@ -26,8 +26,6 @@ module.exports = {
     graphiql: true,
   },
   ip: undefined,
-  bootstrap: [
-    'HeadlessChromeService',
-  ],
+  bootstrap: [],
   chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };

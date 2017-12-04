@@ -9,7 +9,7 @@ module.exports = {
       database: 'noName',
     },
   },
-  bootstrap: ['HeadlessChromeService'],
-  chromeEndpoint: 'https://remote-headless-chrome.now.sh',
+  bootstrap: [],
+  chromeEndpoint: 'http://127.0.0.1:9000',
   // chromeEndpoint: 'https://puppeteer-heroku.herokuapp.com',
 };

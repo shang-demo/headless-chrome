@@ -1,7 +1,3 @@
-const MONGODB_DATABASE = 'production';
-const MONGODB_USERNAME = 'productionUser';
-const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
-
 module.exports = {
   log: {
     level: 'trace',
@@ -9,25 +5,12 @@ module.exports = {
     responseBody: false,
   },
   connections: {
-    defaultMongo: {
-      username: MONGODB_USERNAME,
-      password: MONGODB_PASSWORD,
-      hosts: [
-        {
-          host: '112.74.107.82',
-          port: 13508,
-        }
-      ],
-      database: MONGODB_DATABASE,
-    },
   },
-  port: process.env.PORT || 8080,
+  port: 3000,
   graphql: {
     graphiql: true,
   },
   ip: undefined,
-  bootstrap: [
-    'HeadlessChromeService',
-  ],
-  chromeEndpoint: 'https://remote-headless-chrome.now.sh',
+  bootstrap: [],
+  chromeEndpoint: 'http://0.0.0.0:9000',
 };

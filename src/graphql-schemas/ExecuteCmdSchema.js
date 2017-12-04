@@ -116,13 +116,6 @@ let query = {
       return ExecuteCmdService.helpInfo;
     },
   },
-  wsEndpoint: {
-    type: GraphQLString,
-    description: '获取HeadlessChrome连接',
-    resolve() {
-      return HeadlessChromeService.wsEndpoint();
-    },
-  },
   html: {
     type: GraphQLString,
     description: '获取网页内容',
@@ -135,7 +128,7 @@ let query = {
       },
     },
     resolve(root, args) {
-      return HeadlessChromeService.pageContent(args);
+      return HeadlessChromeService.tryPage(args);
     },
   },
 };
