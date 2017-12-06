@@ -2,7 +2,7 @@
   "dev": {
     "url": "git@github.com:shang-demo/headless-chrome.git",
     "remote": "origin",
-    "branch": "master"
+    "branch": "now"
   },
   "prod": {
     "url": "git@gitlab.com:demoshang/server-projects.git",
