@@ -24,6 +24,7 @@ const svc = {
         ignoreHTTPSErrors: true,
         args: [
           // '--proxy-server=socks5://127.0.0.1:1080',
+          '--ignore-certificate-errors',
           '--disable-gpu',
           '--allow-running-insecure-content', // 允许https 执行 http
           '--incognito', // 以隐身模式启动
