@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-projectDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../.. && pwd )"
-
-# 载入依赖
-cd ${scriptDir}
-source constants.sh
-source util.sh
-
 function checkDependencies() {
 	_checkDependence gsed
 	_checkDependence jq
@@ -22,7 +14,7 @@ function initProject() {
 
 	if [ -z "$1" ]
 	then
-	  echo "need param 'd' to set copy dir"
+	  echo "need new project path to set"
 
     exitAll
   fi
@@ -31,12 +23,25 @@ function initProject() {
   then
     cpDir=$1
   else
-    cpDir="../../$1"
+    cpDir="~/$1"
   fi
   projectName=`basename ${cpDir}`
 
+  echo "${cpDir}"
 
-	if [ -e ${cpDir} ]
+  local checkCover=1
+  if [ "0" = "$2" ]
+  then
+    checkCover=0
+  fi
+
+  local isYarn=1
+  if [ "0" = "$3" ]
+  then
+    isYarn=0
+  fi
+
+  if [ "${checkCover}" = "1" -a -e ${cpDir} ]
 	then
 		echo "${cpDir} 目录存在!!";
 
@@ -64,15 +69,20 @@ function initProject() {
 
 	cat ${defaultConfigPath} | jq "del(.merge) | .dev.url=\"\" | .dev.remote=\"origin\" | .dev.branch=\"\"" > __tmp.json__
 	rm ${defaultConfigPath}
-	mv __tmp.json__ defaultConfigPath
+	mv __tmp.json__ ${defaultConfigPath}
 
 	rm ${defaultCopyScriptPath}
 
 	echo "# ${projectName}" > README.md
+	touch Makefile.rsync.env.private
 
 	git add -A
 	git commit -m "init project"
-	yarnpkg
+
+	if [ "${isYarn}" = "1" ]
+	then
+	  yarnpkg
+	fi
 }
 
 checkDependencies
