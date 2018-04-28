@@ -9,6 +9,14 @@ endif
 d=template2
 gulp:
 	@ gulp
+docker:
+	@ bash config/script-tools/index.sh build development
+	docker build -t headless-chrome ./production
+	docker image prune -f
+	docker images | grep "none" | awk '{print $$3 }' | xargs docker rmi &
+	docker ps -qa --filter="name=headless-chrome" | awk '{print $$1 }' | xargs docker stop
+	docker ps -qa --filter="name=headless-chrome" | xargs -I {} docker rm -f {}
+	docker run --name headless-chrome -d -p 1337:1337 headless-chrome | xargs -I {} docker logs {} -f
 test:
 	@ if [ -n "$(g)" ]; \
 	then \

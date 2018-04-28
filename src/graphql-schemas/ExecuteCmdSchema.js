@@ -126,6 +126,9 @@ let query = {
       delay: {
         type: GraphQLFloat,
       },
+      emulate: {
+        type: GraphQLString,
+      },
     },
     resolve(root, args) {
       return HeadlessChromeService.tryPage(args);

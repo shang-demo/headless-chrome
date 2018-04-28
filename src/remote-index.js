@@ -22,6 +22,7 @@ const svc = {
     try {
       let config = {
         ignoreHTTPSErrors: true,
+        headless: true,
         args: [
           // '--proxy-server=socks5://127.0.0.1:1080',
           '--ignore-certificate-errors',
